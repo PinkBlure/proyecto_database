@@ -19,7 +19,10 @@
     <div class="container-fluid">
       <ul class="navbar-nav d-flex justify-content-center w-100">
         <li class="nav-item">
-          <a class="nav-link text-white active" aria-current="page" href="./index.php">Mis productos</a>
+          <a class="nav-link text-white active" aria-current="page" href="./index.php">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white active" aria-current="page" href="./listado.php">Mis productos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="crear.php">Crear un producto</a>
@@ -29,38 +32,13 @@
   </nav>
 
   <main class="flex-grow-1 container mt-4 mb-4">
-    <h1 class="mb-2"> -- Mis Productos -- </h1>
-    <div class="row g-4 mt-2">
-      <?php
-        // Creación de la conexión
-        $conn = createConnection("localhost", "proyecto", "root", "");
-
-        if ($conn == null) {
-          echo "<script>console.log('Error: No se pudo establecer conexión con la base de datos.')</script>";
-        }
-
-        $resultado_query = $conn->query('select * from productos');
-
-        while($row = $resultado_query->fetch(PDO::FETCH_OBJ)) {
-          echo "<div id='$row->id' class='col-sm-6 col-md-4 col-lg-3'>
-                  <article class='card text-center h-100 d-flex flex-column'>
-                    <div class='card-header'>Código: {$row->id}</div>
-                    <div class='card-body d-flex flex-column'>
-                      <h3 class='card-title'>{$row->nombre}</h3>
-                      <a class='btn btn-info mt-auto' href='detalle.php?id={$row->id}'>Ver Detalle</a>
-                    </div>
-                    <div class='card-footer text-body-secondary d-flex flex-row gap-2 justify-content-center'>
-                      <a class='btn btn-warning' href='update.php?id={$row->id}'>Modificar</a>
-                      <a class='btn btn-danger' href='borrar.php?id={$row->id}'>Eliminar</a>
-                    </div>
-                  </article>
-                </div>";
-          }
-
-        // Cerrar la conexión
-        $conn = null;
-      ?>
-    </div>
+    <h1> -- Gestión de la base de datos -- </h1>
+    <?php
+      echo "<div class='d-flex justify-content-center mt-4 flex-column gap-2'>
+              <a class='btn btn-primary' href='listado.php'>Ver mis productos</a>
+              <a class='btn btn-primary' href='crear.php'>Crear un producto</a>
+            </div>";
+    ?>
   </main>
     
   <footer class="bg-dark text-light text-center py-3">

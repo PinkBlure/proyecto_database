@@ -20,11 +20,14 @@
     $id_producto = $_GET['id'];
   ?>
 
-	<nav class="navbar navbar-expand-lg p-3 mb-2 bg-secondary text-white">
+  <nav class="navbar navbar-expand-lg p-3 mb-2 bg-secondary text-white">
     <div class="container-fluid">
       <ul class="navbar-nav d-flex justify-content-center w-100">
         <li class="nav-item">
-          <a class="nav-link text-white active" aria-current="page" href="./index.php">Mis productos</a>
+          <a class="nav-link text-white active" aria-current="page" href="./index.php">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white active" aria-current="page" href="./listado.php">Mis productos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="crear.php">Crear un producto</a>
@@ -38,7 +41,7 @@
 
     <?php
 			echo "<div class='d-flex justify-content-center mt-4'>
-							<a class='btn btn-primary' href='index.php#".$id_producto."'>Volver a la página principal</a>
+							<a class='btn btn-primary' href='listado.php#".$id_producto."'>Volver a mis productos</a>
 						</div>";
     ?>
   </main>

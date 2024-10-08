@@ -14,7 +14,10 @@
     <div class="container-fluid">
       <ul class="navbar-nav d-flex justify-content-center w-100">
         <li class="nav-item">
-          <a class="nav-link text-white active" aria-current="page" href="./index.php">Mis productos</a>
+          <a class="nav-link text-white active" aria-current="page" href="./index.php">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white active" aria-current="page" href="./listado.php">Mis productos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="crear.php">Crear un producto</a>
@@ -61,7 +64,7 @@
       <div class='d-flex justify-content-center mt-4 gap-2'>
         <input class='btn btn-success' type="submit" value="Crear producto">
         <input class='btn btn-danger' type="reset" value="Resetear formulario">
-        <a class='btn btn-primary' href='index.php#".$id_producto."'>Volver a la página principal</a>
+        <a class='btn btn-primary' href='index.php'>Volver a la página principal</a>
       </div>
     </form>
 	</main>
