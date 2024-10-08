@@ -7,7 +7,9 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="d-flex flex-column min-vh-100">
+
   <nav class="navbar navbar-expand-lg p-3 mb-2 bg-secondary text-white">
     <div class="container-fluid">
       <ul class="navbar-nav d-flex justify-content-center w-100">
@@ -24,11 +26,44 @@
 	<main class="flex-grow-1 container mt-4 mb-4">
 		<h1 class="mb-4"> -- Crear producto -- </h1>
 
-		<?php
-				echo "<div class='d-flex justify-content-center mt-4'>
-								<a class='btn btn-primary' href='index.php#".$id_producto."'>Volver a la página principal</a>
-							</div>";
-		?>
+    <form method="post" class="container p-4 border rounded bg-light shadow-sm">
+      <legend class="mb-4 text-center">Introduce los datos del producto</legend>
+
+      <div class="form-group mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingresa el nombre del producto" required>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="nombre_corto" class="form-label">Nombre corto</label>
+        <input type="text" id="nombre_corto" name="nombre_corto" class="form-control" placeholder="Ingresa el nombre corto del producto" required>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="precio" class="form-label">Precio (€)</label>
+        <input type="number" step="0.01" id="precio" name="precio" class="form-control" placeholder="Ingresa el precio" required>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="familia" class="form-label">Familia</label>
+        <select id="familia" name="familia" class="form-select" required>
+          <?php
+          
+          ?>
+        </select>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <textarea id="descripcion" name="descripcion" class="form-control" rows="4" placeholder="Añade una descripción del producto" required></textarea>
+      </div>
+
+      <div class='d-flex justify-content-center mt-4 gap-2'>
+        <input class='btn btn-success' type="submit" value="Crear producto">
+        <input class='btn btn-danger' type="reset" value="Resetear formulario">
+        <a class='btn btn-primary' href='index.php#".$id_producto."'>Volver a la página principal</a>
+      </div>
+    </form>
 	</main>
 
   <footer class="bg-dark text-light text-center py-3">
