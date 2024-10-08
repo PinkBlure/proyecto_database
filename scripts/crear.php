@@ -10,6 +10,11 @@
 
 <body class="d-flex flex-column min-vh-100">
 
+  <?php
+    require_once __DIR__."/base/functions.php";
+    enableErrorLog();
+  ?>
+
   <nav class="navbar navbar-expand-lg p-3 mb-2 bg-secondary text-white">
     <div class="container-fluid">
       <ul class="navbar-nav d-flex justify-content-center w-100">
@@ -51,7 +56,22 @@
         <label for="familia" class="form-label">Familia</label>
         <select id="familia" name="familia" class="form-select" required>
           <?php
+            $conn = createConnection("localhost", "proyecto", "root", "");
+
+            if ($conn == null) {
+              echo "<script>console.log('Error: No se pudo establecer conexión con la base de datos.')</script>";
+            }
+      
+            $resultado_query = $conn->query("select * from familias");
+
+            while($row = $resultado_query->fetch(PDO::FETCH_OBJ)) {
+              $cod = htmlspecialchars($row->cod);
+              $nombre = htmlspecialchars($row->nombre);
           
+              echo "<option value='{$cod}'>{$nombre}</option>";
+            }
+      
+            $conn = null;
           ?>
         </select>
       </div>
@@ -67,6 +87,53 @@
         <a class='btn btn-primary' href='index.php'>Volver a la página principal</a>
       </div>
     </form>
+
+    <?php
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nombre = $_POST['nombre'];
+        $nombre_corto = $_POST['nombre_corto'];
+        $precio = $_POST['precio'];
+        $familia = $_POST['familia'];
+        $descripcion = $_POST['descripcion'];
+
+        // Creación de la conexión
+        $conn = createConnection("localhost", "proyecto", "root", "");
+
+        if ($conn == null) {
+          echo "<script>console.log('Error: No se pudo establecer conexión con la base de datos.')</script>";
+        }
+
+        $resultado_query = $conn->query("select count(id) as numProducts from productos");
+
+        $count = 0;
+        while($row = $resultado_query->fetch(PDO::FETCH_OBJ)) {
+          $count = htmlspecialchars($row->numProducts);
+        }
+        $count+=1;
+
+        try {
+          $reg = $conn->exec("INSERT INTO `productos` (`id`, `nombre`, `nombre_corto`, `descripcion`, `pvp`, `familia`) VALUES ('".$count."', '".$nombre."', '".$nombre_corto."', '".$descripcion."', '".$precio."', '".$familia."')");
+
+          if ($reg == 1) {
+            echo "<p class='alert alert-success mt-4' role='alert'>El producto se ha creado con éxito</p>";
+          }
+
+        } catch (PDOException $ex) {
+          if ($ex->getCode() == "23000") {
+            echo "<p class='alert alert-danger mt-4' role='alert'>
+                    Este nombre corto ya está en uso. Por favor, introduce otro nombre corto.
+                  </p>";
+          } else {
+            echo "<p class='alert alert-danger mt-4' role='alert'>";
+            echo "Error en la base de datos: " . $ex->getMessage() . "<br>";
+            echo "Código de error: " . $ex->getCode() . "<br>";
+            echo "</p>";
+          }
+        }
+        
+        $conn = null;
+      }
+    ?>
 	</main>
 
   <footer class="bg-dark text-light text-center py-3">
