@@ -103,13 +103,17 @@
           echo "<script>console.log('Error: No se pudo establecer conexión con la base de datos.')</script>";
         }
 
-        $resultado_query = $conn->query("select count(id) as numProducts from productos");
+        $resultado_query = $conn->query("SELECT id FROM productos");
 
-        $count = 0;
-        while($row = $resultado_query->fetch(PDO::FETCH_OBJ)) {
-          $count = htmlspecialchars($row->numProducts);
+        $ids = [];
+        while ($row = $resultado_query->fetch(PDO::FETCH_OBJ)) {
+          $ids[] = (int)$row->id;
         }
-        $count+=1;
+
+        $count = 1;
+        while (in_array($count, $ids)) {
+          $count++;
+        }
 
         try {
           $reg = $conn->exec("INSERT INTO `productos` (`id`, `nombre`, `nombre_corto`, `descripcion`, `pvp`, `familia`) VALUES ('".$count."', '".$nombre."', '".$nombre_corto."', '".$descripcion."', '".$precio."', '".$familia."')");
